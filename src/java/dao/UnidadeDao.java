@@ -23,8 +23,8 @@ public class UnidadeDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO unidade(NOME)"
-                    + "VALUES ('" + unidade.getNome() + "')";
+            String sql = "INSERT INTO unidade(NOME, FONE,ESTADO, VOIP)"
+                    + "VALUES ('"+unidade.getNome()+"','"+unidade.getFone()+"','"+unidade.getEstado()+"','"+unidade.getVoip()+"')";
             try {
                 conecta.getStm().execute(sql);
 
