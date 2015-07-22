@@ -19,21 +19,21 @@
     <body>
         <h3>Unidades Cadastradas</h3>
 
-        <table border=2px cellpadding=5px cellspacing=0>
-            <%
-                String msg = request.getParameter("unidadeIncluida");
-                if (msg != null) {
-                    out.print("<h3>Unidade: <strong>" + msg + "</strong>cadastrada com sucesso</h3>");
-                } else {
-                    msg = request.getParameter("erro");
-                    if (msg != null) {
-                        out.print("<h3>Erro: <strong>" + msg + "</strong> ao cadastrar unidade</h3>");
-                    }
-                }
-                
-                UnidadeDao unidadeDao = new UnidadeDao();
-            %>        
 
+        <%
+            String msg = request.getParameter("unidadeIncluida");
+            if (msg != null) {
+                out.print("<h3>Unidade: <strong>" + msg + "</strong>cadastrada com sucesso</h3>");
+            } else {
+                msg = request.getParameter("erro");
+                if (msg != null) {
+                    out.print("<h3>Erro: <strong>" + msg + "</strong> ao cadastrar unidade</h3>");
+                }
+            }
+
+            UnidadeDao unidadeDao = new UnidadeDao();
+        %>        
+        <table border=2px cellpadding=5px cellspacing=0>
             <thead>
                 <tr>
                     <th>Código</th>

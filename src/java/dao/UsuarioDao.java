@@ -26,10 +26,8 @@ public class UsuarioDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-
             String sql = "INSERT INTO Usuario(NOME, SENHA, EMAIL, UNIDADE_CODIGO)"
                     + "VALUES ('" + user.getNome() + "','" + user.getSenha() + "','" + user.getEmail() + "','" + user.getUnidade().getCodigo() + "')";
-
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";
