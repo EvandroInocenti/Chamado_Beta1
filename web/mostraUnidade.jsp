@@ -21,8 +21,16 @@
 
         <table border=2px cellpadding=5px cellspacing=0>
             <%
-                String msg = request.getParameter("Unidade Cadastrada");
-
+                String msg = request.getParameter("unidadeIncluida");
+                if (msg != null) {
+                    out.print("<h3>Unidade: <strong>" + msg + "</strong>cadastrada com sucesso</h3>");
+                } else {
+                    msg = request.getParameter("erro");
+                    if (msg != null) {
+                        out.print("<h3>Erro: <strong>" + msg + "</strong> ao cadastrar unidade</h3>");
+                    }
+                }
+                
                 UnidadeDao unidadeDao = new UnidadeDao();
             %>        
 
@@ -30,6 +38,7 @@
                 <tr>
                     <th>Código</th>
                     <th>Nome</th>
+                    <th>Estado</th>
                     <th>Telefone</th>
                     <th>VoIP</th>
                 </tr>
@@ -37,10 +46,10 @@
 
             <c:forEach var="c" items="<%=unidadeDao.getUnidades()%>">
                 <tr>
-                    <td align="center">&{c.codigo}</td>
+                    <td align="center">${c.codigo}</td>
                     <td>${c.nome}</td>
                     <td>${c.estado}</td>
-                    <td>&{c.telefone}</td>
+                    <td>${c.fone}</td>
                     <td>${c.voip}</td>
                 </tr>
 

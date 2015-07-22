@@ -39,32 +39,32 @@ public class AlimentaUnidadeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AlimentaUnidadeServlet</title>");            
+            out.println("<title>Servlet AlimentaUnidadeServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            
+
             Unidade unidade = new Unidade();
-                       
+
             String temp = request.getParameter("nome");
             unidade.setNome(temp);
-            
+
             temp = request.getParameter("fone");
             unidade.setFone(temp);
-            
+
             temp = request.getParameter("estado");
             unidade.setEstado(temp);
-            
+
             temp = request.getParameter("voip");
             unidade.setVoip(temp);
-            
-             UnidadeDao unidadeDao = new UnidadeDao();
+
+            UnidadeDao unidadeDao = new UnidadeDao();
             String msg = unidadeDao.AddUnidade(unidade);
-            if(msg.equals("sucesso")){
-                 response.sendRedirect("mostraUnidade.jsp?unidadeIncluida = " + unidade.getNome());
-            }else {
+            if (msg.equals("sucesso")) {
+                response.sendRedirect("mostraUnidade.jsp?unidadeIncluida = " + unidade.getNome());
+            } else {
                 out.print("Erro ao incluir unidade!");
             }
-            
+
             out.println("</body>");
             out.println("</html>");
         }

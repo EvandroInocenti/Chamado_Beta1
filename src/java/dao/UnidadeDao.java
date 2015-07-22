@@ -23,8 +23,8 @@ public class UnidadeDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO unidade(NOME, FONE,ESTADO, VOIP)"
-                    + "VALUES ('"+unidade.getNome()+"','"+unidade.getFone()+"','"+unidade.getEstado()+"','"+unidade.getVoip()+"')";
+            String sql = "INSERT INTO unidade(CODIGO, NOME, FONE, ESTADO, VOIP)"
+                    + "VALUES ('"+unidade.getCodigo()+ "','"+unidade.getNome()+"','"+unidade.getFone()+"','"+unidade.getEstado()+"','"+unidade.getVoip()+"')";
             try {
                 conecta.getStm().execute(sql);
 
@@ -56,10 +56,16 @@ public class UnidadeDao {
 
                     int cod = rs.getInt("CODIGO");
                     String nome = rs.getString("NOME");
+                    String fone = rs.getString("FONE");
+                    String uf = rs.getString("ESTADO");
+                    String voip = rs.getString("VOIP");
 
                     Unidade uni = new Unidade();
-                    uni.setNome(nome);
                     uni.setCodigo(cod);
+                    uni.setNome(nome);
+                    uni.setFone(fone);
+                    uni.setEstado(uf);
+                    uni.setVoip(voip);
                     lista.add(uni);
                 }
             } catch (SQLException ex) {
