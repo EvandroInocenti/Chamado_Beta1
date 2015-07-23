@@ -21,11 +21,11 @@ public class AtendenteDao {
 
         Conecta conecta = new Conecta();
 
-        if ("sucesso".equals(conecta.getStm())) {
+        if ("sucesso".equals(conecta.getMsg())) {
             String sql = "INSERT INTO atendente(CODIGO, NOME, EMAIL)"
-                    + "VALUES ('" + atendente.getNome() + "','" + atendente.getEmail() + "')";
+                    + "VALUES ('" + atendente.getCodigo() + "','" + atendente.getNome() + "','" + atendente.getEmail() + "')";
             try {
-                conecta.getStm().equals(sql);
+                conecta.getStm().execute(sql);
                 return "sucesso";
             } catch (Exception e) {
                 return ("erro" + e.getMessage());
@@ -42,7 +42,7 @@ public class AtendenteDao {
 
         if ("sucesso".equals(conecta.getMsg())) {
 
-            String sql = "SELECT ATEN.* FROM ATEN";
+            String sql = "SELECT ATEN.* FROM ATENDENTE ATEN";
 
             ResultSet rs;
 
@@ -58,6 +58,7 @@ public class AtendenteDao {
                     atendente.setCodigo(cod);
                     atendente.setNome(nome);
                     atendente.setEmail(email);
+                    listAten.add(atendente);
                 }
             } catch (Exception e) {
 
