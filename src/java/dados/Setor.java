@@ -9,13 +9,13 @@ package dados;
  *
  * @author evandro
  */
-public class Atendente {
-
+public class Setor {
     private int codigo;
-    private String nome, email;
-    
-    public Atendente() {
-       
+    private String nome;
+
+    public Setor(int codigo, String nome) {
+        this.codigo = codigo;
+        this.nome = nome;
     }
 
     public int getCodigo() {
@@ -33,13 +33,5 @@ public class Atendente {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    
 }

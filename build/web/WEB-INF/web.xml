@@ -4,9 +4,17 @@
         <servlet-name>AlimentaUnidadeServlet</servlet-name>
         <servlet-class>servlets.AlimentaUnidadeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlimentaAtendenteServlet</servlet-name>
+        <servlet-class>servlets.AlimentaAtendenteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlimentaUnidadeServlet</servlet-name>
         <url-pattern>/AlimentaUnidadeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlimentaAtendenteServlet</servlet-name>
+        <url-pattern>/AlimentaAtendenteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

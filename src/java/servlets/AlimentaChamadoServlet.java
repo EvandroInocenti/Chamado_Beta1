@@ -58,12 +58,13 @@ public class AlimentaChamadoServlet extends HttpServlet {
             if (login == userDao.verificaLogin(login)) {
 
                     String tipo = request.getParameter("tipo");
-                    if (tipo.equalsIgnoreCase("software")) {
+                    if (tipo.equalsIgnoreCase("TI-Desenvolvimento")) {
                         chamado.setTipo(tipo);
-                        atendente.setCodigo(1);
+                        //atendente.setCodigo(1);
+                        atendente.setNome(atendente.getNome());
 
                     } else {
-                        if (tipo.equalsIgnoreCase("hardware")) {
+                        if (tipo.equalsIgnoreCase("TI-Suporte")) {
                             chamado.setTipo(tipo);
                             atendente.setCodigo(2);
                         }
