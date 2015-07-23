@@ -40,7 +40,7 @@ public class ChamadoDao {
             if ("sucesso".equals(conecta.getMsg())) {
                 String sql = "INSERT INTO chamado (tipo, descricao, Atendente_codigo, Status_codigo, Usuario_codigo)"
                         + " VALUES ('" + chamado.getTipo() + "','" + chamado.getDescricao() + "'," + chamado.getAtendente().getCodigo()
-                        + "," + chamado.getStatus().getCodigo() + "," + chamado.getUsuario().getCodigo() + ")";
+                        + "," + chamado.getStatus().getCodigo() + "," + chamado.getUsuario().getCodigo() + "')";
                 try {
                     conecta.getStm().execute(sql);
                     return "sucesso";

@@ -24,7 +24,8 @@ public class UnidadeDao {
 
         if ("sucesso".equals(conecta.getMsg())) {
             String sql = "INSERT INTO unidade(CODIGO, NOME, FONE, ESTADO, VOIP)"
-                    + "VALUES ('" + unidade.getCodigo() + "','" + unidade.getNome() + "','" + unidade.getFone() + "','" + unidade.getEstado() + "','" + unidade.getVoip() + "')";
+                    + "VALUES ('" + unidade.getCodigo() + "','" + unidade.getNome() + "','" + unidade.getFone()
+                    + "','" + unidade.getEstado() + "','" + unidade.getVoip() + "')";
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";

@@ -22,8 +22,9 @@ public class AtendenteDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO atendente(CODIGO, NOME, EMAIL)"
-                    + "VALUES ('" + atendente.getCodigo() + "','" + atendente.getNome() + "','" + atendente.getEmail() + "')";
+            String sql = "INSERT INTO atendente(CODIGO, NOME, EMAIL, SETOR_CODIGO)"
+                    + "VALUES ('" + atendente.getCodigo() + "','" + atendente.getNome()
+                    + "','" + atendente.getEmail() + "','" + atendente.getSetor().getCodigo() + "')";
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";
@@ -36,14 +37,16 @@ public class AtendenteDao {
     }
 
     public List<Atendente> getAtendentes() {
-        List<Atendente> listAten = new ArrayList<>();
+        List<Atendente> listAten = new ArrayList<Atendente>();
 
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
 
-            String sql = "SELECT ATEN.* FROM ATENDENTE ATEN";
-
+            String sql = "SELECT * FROM ATENDENTE \n"
+                    +"    inner join setor on setor.codigo = atendente.Setor_codigo"
+                    +"     order by atendente.nome";
+            
             ResultSet rs;
 
             try {
