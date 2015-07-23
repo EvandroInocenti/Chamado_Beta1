@@ -53,8 +53,8 @@ public class ChamadoDao {
             }
             // } else {
             //return "Senha Inváilda";
-        } else {
-            return "Usuario invalido";
+        }else {
+          return "Usuario invalido";
         }
     }
 
