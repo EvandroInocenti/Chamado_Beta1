@@ -22,7 +22,7 @@ public class AtendenteDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO atendente(CODIGO, NOME, EMAIL, SETOR_CODIGO)"
+            String sql = "INSERT INTO atendente(CODIGO, NOME, EMAIL, Setor_codigo)"
                     + "VALUES ('" + atendente.getCodigo() + "','" + atendente.getNome()
                     + "','" + atendente.getEmail() + "','" + atendente.getSetor().getCodigo() + "')";
             try {
