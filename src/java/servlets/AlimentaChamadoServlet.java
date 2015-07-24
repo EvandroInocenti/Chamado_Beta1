@@ -53,9 +53,9 @@ public class AlimentaChamadoServlet extends HttpServlet {
             //Usuario usuario = new Usuario();
             UsuarioDao userDao = new UsuarioDao();
 
-            String login = request.getParameter("login");
+           // String login = request.getParameter("login");
             //String verLod = userDao.verificaLogin(usuario);
-            if (login == userDao.verificaLogin(login)) {
+            //if (login == userDao.verificaLogin(login)) {
 
                     String tipo = request.getParameter("tipo");
                     if (tipo.equalsIgnoreCase("TI-Desenvolvimento")) {
@@ -83,9 +83,9 @@ public class AlimentaChamadoServlet extends HttpServlet {
                     chamado.setStatus(stat);
 
                     //buscar usuarios banco.
-                    Usuario usu = new Usuario();
-                    usu.setCodigo(Integer.parseInt(login));
-                    chamado.setUsuario(usu);
+                   // Usuario usu = new Usuario();
+                    //usu.setCodigo(Integer.parseInt(login));
+                    //chamado.setUsuario(usu);
 
                     ChamadoDao chamadoDao = new ChamadoDao();
                     String msg = chamadoDao.addChamado(chamado);
@@ -100,7 +100,7 @@ public class AlimentaChamadoServlet extends HttpServlet {
                     out.println("</body>");
                     out.println("</html>");
              
-            }
+            //}
             System.out.println("Usuario ou senha incorretos");
         }
         System.out.println("Usuario ou senha incorretos");

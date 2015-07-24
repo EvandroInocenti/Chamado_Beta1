@@ -49,6 +49,7 @@ public class AlimentaSetorServlet extends HttpServlet {
             
             SetorDao setorDao = new SetorDao();
             String msg = setorDao.addSetor(setor);
+           
             if(msg.equals("sucesso")){
                 response.sendRedirect("mostraSetor.jsp?setorIncluido = " + setor.getNome());
             }else{

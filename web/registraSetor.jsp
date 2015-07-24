@@ -18,7 +18,8 @@
                 <label for="name">Nome: </label>
                 <input type="text" name="nome" id="nome" value="" size="30"/><br/>
                 <br/>
-                <input type="submit" value="Cadastrar>>" name="btServlet" id="btServlet"
+                <input type="submit" value="Cadastrar >>" name="btServlet" id="btServlet" />
+                
             </form>
         </fieldset>
         <a href="index.html">Inicio</a>

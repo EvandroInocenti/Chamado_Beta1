@@ -22,8 +22,8 @@ public class SetorDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO Setor (NOME)"
-                    + "VALUES ('" + setor.getNome() + "')";
+            String sql = "INSERT INTO Setor ( NOME)"
+                    + "VALUES ('" + setor.getNome()+ "')";
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";
@@ -48,7 +48,7 @@ public class SetorDao {
 
             try {
                 rs = conecta.getStm().executeQuery(sql);
-
+              
                 while (rs.next()) {
 
                     int cod = rs.getInt("CODIGO");

@@ -32,8 +32,8 @@
                 </select>
                     
                 <br/>
-                <input type="submit" value="cadastrar" name="btServlet" id="btServlet">
-
+                <input type="submit" value="cadastrar>>" name="btServlet" id="btServlet" />
+                
             </form>
         </fieldset>
         <a href="index.html">Inicio</a><br />

@@ -4,7 +4,9 @@
     Author     : evandro
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="dao.SetorDao"%>
+<%@page import="dados.Setor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,11 +19,11 @@
         <%
             String msg = request.getParameter("setorIncluido");
             if (msg != null) {
-                out.print("<h3>Setor <strong:" + msg + "incluido com sucesso!</strong></h3>");
+                out.print("<h3>Setor <strong>" + msg + "</strong> incluido com sucesso!</h3>");
             } else {
                 msg = request.getParameter("erro");
                 if (msg != null) {
-                    out.print("<h3>Erro: <strong> " + msg + "</strong> ao cadastrar o setor!");
+                    out.print("<h3>Erro: <strong> " + msg + "</strong> ao cadastrar o setor!</h3>");
                 }
             }
             SetorDao setorDao = new SetorDao();
@@ -33,10 +35,9 @@
                     <th>Nome</th>
                 </tr>
             </thead>
-
             <c:forEach var="c" items="<%=setorDao.getSetores()%>">
                 <tr>
-                    <td align="center"> ${c.codigo}</td>
+                    <td align="center">${c.codigo}</td>
                     <td>${c.nome}</td>
                 </tr>
             </c:forEach>

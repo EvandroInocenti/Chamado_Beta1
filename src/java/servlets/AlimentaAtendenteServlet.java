@@ -2,6 +2,7 @@
 package servlets;
 
 import dados.Atendente;
+import dados.Setor;
 import dao.AtendenteDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,7 +44,12 @@ public class AlimentaAtendenteServlet extends HttpServlet {
             atendente.setNome(temp);
             temp = request.getParameter("email");
             atendente.setEmail(temp);
-
+            
+            temp = request.getParameter("setor");
+            Setor setor = new Setor();
+            setor.setCodigo(Integer.parseInt(temp));
+            atendente.setSetor(setor);
+            
             AtendenteDao atenDao = new AtendenteDao();
             String msg = atenDao.addAtendente(atendente);
             

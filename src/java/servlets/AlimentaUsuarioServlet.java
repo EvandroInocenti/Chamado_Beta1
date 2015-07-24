@@ -62,6 +62,7 @@ public class AlimentaUsuarioServlet extends HttpServlet {
             
             UsuarioDao userDao = new UsuarioDao();
             String msg = userDao.addUsuario(usuario);
+            
             if (msg.equals("sucesso")) {
                 response.sendRedirect("mostraUsuariosJSTL.jsp?nomeIncluido = " + usuario.getNome());
             } else {
