@@ -4,6 +4,8 @@
     Author     : evandro
 --%>
 
+<%@page import="dados.Setor"%>
+<%@page import="dao.SetorDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,6 +21,16 @@
                 <input type="text" name="nome" id="nome" value="" size="50"><br/>
                 <label for="email">E-mail</label>
                 <input type="text" name="email" id="email" value="" size="50"><br/>
+                <label>Setor</label>
+                <select name="setor">
+                    <%
+                        SetorDao setorDao = new SetorDao();
+                        for(Setor setor : setorDao.getSetores()){
+                           out.print("<option value=\"" +setor.getCodigo() + "\">" + setor.getNome()+ "</option>");
+                        }
+                    %>
+                </select>
+                    
                 <br/>
                 <input type="submit" value="cadastrar" name="btServlet" id="btServlet">
 
