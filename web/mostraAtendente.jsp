@@ -37,6 +37,7 @@
                     <th>Codigo</th>
                     <th>Nome</th>
                     <th>E-mail</th>
+                    <th>Setor</th>
                 </tr>
             </thead>
 
@@ -45,6 +46,12 @@
                     <td aling="center">${c.codigo}</td>
                     <td>${c.nome}</td>
                     <td>${c.email}</td>
+                    <c:if test="${c.setor != null}">
+                        <td>${c.setor.nome}</td>
+                    </c:if>
+                    <c:if test="${c.setor == null}">
+                        <td>Unidade não cadastrada</td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </tBody>

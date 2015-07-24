@@ -7,9 +7,12 @@ package dao;
 
 import conexao.Conecta;
 import dados.Atendente;
+import dados.Setor;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -43,10 +46,10 @@ public class AtendenteDao {
 
         if ("sucesso".equals(conecta.getMsg())) {
 
-            String sql = "SELECT * FROM ATENDENTE \n"
-                    +"    inner join setor on setor.codigo = atendente.Setor_codigo"
-                    +"     order by atendente.nome";
-            
+            String sql = "SELECT aten.*,setor.nome as Setor FROM atendente aten \n"
+                    + "    inner join setor on setor.codigo = aten.Setor_codigo"
+                    + "     order by aten.nome";
+
             ResultSet rs;
 
             try {
@@ -56,15 +59,16 @@ public class AtendenteDao {
                     int cod = rs.getInt("CODIGO");
                     String nome = rs.getString("NOME");
                     String email = rs.getString("EMAIL");
+                    String nomeSetor = rs.getString("SETOR");
 
-                    Atendente atendente = new Atendente();
-                    atendente.setCodigo(cod);
-                    atendente.setNome(nome);
-                    atendente.setEmail(email);
+                    Setor setor = new Setor();
+                    setor.setNome(nomeSetor);
+
+                    Atendente atendente = new Atendente(cod, nome, email, setor);
                     listAten.add(atendente);
                 }
             } catch (Exception e) {
-
+                
             }
             return listAten;
         }

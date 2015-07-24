@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -35,7 +35,7 @@ public class AlimentaUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -43,32 +43,32 @@ public class AlimentaUsuarioServlet extends HttpServlet {
             out.println("<title>Servlet AlimentaUsuarioServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            
+
             Usuario usuario = new Usuario();
-            
+
             String temp = request.getParameter("nome");
             usuario.setNome(temp);
-            
+
             temp = request.getParameter("senha");
             usuario.setSenha(temp);
-            
+
             temp = request.getParameter("email");
             usuario.setEmail(temp);
-            
+
             temp = request.getParameter("unidade");
             Unidade uni = new Unidade();
             uni.setCodigo(Integer.parseInt(temp));
             usuario.setUnidade(uni);
-            
+
             UsuarioDao userDao = new UsuarioDao();
             String msg = userDao.addUsuario(usuario);
-            
+
             if (msg.equals("sucesso")) {
                 response.sendRedirect("mostraUsuariosJSTL.jsp?nomeIncluido = " + usuario.getNome());
             } else {
                 out.print("Erro ao incluir o nome!");
             }
-            
+
             out.println("</body>");
             out.println("</html>");
         }
