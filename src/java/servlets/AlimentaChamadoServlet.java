@@ -58,7 +58,7 @@ public class AlimentaChamadoServlet extends HttpServlet {
 
             temp = request.getParameter("status");
             Status stat = new Status();
-            stat.setCodigo(Integer.parseInt(request.getParameter(temp)));
+            stat.setCodigo(Integer.parseInt(temp));
             chamado.setStatus(stat);
 
             ChamadoDao chamadoDao = new ChamadoDao();

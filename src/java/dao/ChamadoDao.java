@@ -30,9 +30,9 @@ public class ChamadoDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO chamado (setor_codigo, descricao, Status_codigo, Usuario_codigo)"
-                    + " VALUES ('" + chamado.getSetor().getCodigo() + "','" + chamado.getDescricao() + "'," + chamado.getStatus().getCodigo()
-                    + "," + chamado.getUsuario().getNome() + "')";
+            String sql = "INSERT INTO chamado (descricao, Status_codigo, Usuario_codigo, setor_codigo)"
+                    + " VALUES ('"  + chamado.getDescricao() + "','" + chamado.getStatus().getCodigo()
+                    + "','" + chamado.getUsuario().getCodigo()+ "','"  + chamado.getSetor().getCodigo()+"')";
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";
