@@ -6,7 +6,6 @@
 package dao;
 
 import conexao.Conecta;
-import dados.Atendente;
 import dados.Chamado;
 import dados.Setor;
 import dados.Status;
@@ -29,17 +28,11 @@ public class ChamadoDao {
     public String addChamado(Chamado chamado) {
 
         Conecta conecta = new Conecta();
-        UsuarioDao usuarioDao = new UsuarioDao();
-        Usuario usuario = new Usuario();
 
-        //String loginOk = usuarioDao.verificaLogin(usuario.getNome());
-        //String senhaOk = usuarioDao.verificaSenha(usuario.getSenha());
-        //if (loginOk == usuarioDao.verificaLogin(loginOk)) {
-        // if (senhaOk == usuarioDao.verificaSenha(senhaOk)) {
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO chamado (tipo, descricao, Status_codigo, Usuario_codigo, Setor_codigo)"
-                    + " VALUES ('" + chamado.getTipo() + "','" + chamado.getDescricao() + "'," + chamado.getStatus().getCodigo()
-                    + "," + chamado.getUsuario().getNome() + "," + chamado.getSetor().getNome() + "')";
+            String sql = "INSERT INTO chamado (setor_codigo, descricao, Status_codigo, Usuario_codigo)"
+                    + " VALUES ('" + chamado.getSetor().getCodigo() + "','" + chamado.getDescricao() + "'," + chamado.getStatus().getCodigo()
+                    + "," + chamado.getUsuario().getNome() + "')";
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";
@@ -50,11 +43,7 @@ public class ChamadoDao {
         } else {
             return ("Erro: " + conecta.getMsg());
         }
-        // } else {
-        //return "Senha Inváilda";
-        //}        else {
-        // return "Usuario invalido";
-        // }
+
     }
 
     //exibe chamados
@@ -64,7 +53,7 @@ public class ChamadoDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "select ch.codigo AS chamado, tipo, descricao, setor.nome AS setor AS setor, usu.nome AS usuario, stat.situacao AS Status "
+            String sql = "select ch.codigo AS chamado, descricao, setor.nome AS setor AS setor, usu.nome AS usuario, stat.situacao AS Status "
                     + "     from CHAMADO ch "
                     + "     inner join atendente setor on setor.codigo = ch.Atendente_codigo "
                     + "     inner join status stat on stat.codigo = ch.Status_codigo "
@@ -78,27 +67,21 @@ public class ChamadoDao {
                 //percorre a lista
                 while (rs.next()) {
                     int cod = rs.getInt("chamado");
-                    String tipo = rs.getString("tipo");
+                    String nomSet = rs.getString("setor");
                     String desc = rs.getString("descricao");
-                    // String nomeAte = rs.getString("atendente");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
-                    String nomSet = rs.getString("setor");
 
-                    //Atendente atendente = new Atendente();
-                    //atendente.setNome(nomeAte);
-                    //String sitStat = rs.getString("SITSTAT");
                     Status status = new Status();
                     status.setSituacao(situacao);
 
-                    //String nomeUsu = rs.getString("NOMEUSU");
                     Usuario usuario = new Usuario();
                     usuario.setNome(nomeUsu);
 
                     Setor setor = new Setor();
                     setor.setNome(nomSet);
 
-                    Chamado chamado = new Chamado(cod, tipo, desc, status, usuario, setor);
+                    Chamado chamado = new Chamado(cod, setor, desc, status, usuario);
 
                     lista.add(chamado);
                 }
@@ -118,7 +101,7 @@ public class ChamadoDao {
 
         if ("sucesso".equals(conecta.getMsg())) {
 
-            String sql = "select ch.codigo AS chamado,tipo, aten.nome AS atendente, stat.situacao AS Status, usu.nome AS usuario "
+            String sql = "select ch.codigo AS chamado, descricao, setor.nome AS setor, aten.nome AS atendente, stat.situacao AS Status, usu.nome AS usuario "
                     + "     from CHAMADO ch "
                     + "     inner join atendente aten on aten.codigo = ch.Atendente_codigo "
                     + "     inner join status stat on stat.codigo = ch.Status_codigo "
@@ -134,26 +117,21 @@ public class ChamadoDao {
                 //percorre a lista
                 while (rs.next()) {
                     int cod = rs.getInt("chamado");
-                    String tipo = rs.getString("tipo");
-                    //String nomeAte = rs.getString("atendente");
+                    String nomSet = rs.getString("setor");
+                    String desc = rs.getString("descricao");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
-                    String nomSet = rs.getString("setor");
 
                     Setor setor = new Setor();
                     setor.setNome(nomSet);
 
-                   // Atendente atendente = new Atendente();
-                    //atendente.setNome(nomeAte);
-                    //String sitStat = rs.getString("SITSTAT");
                     Status status = new Status();
                     status.setSituacao(situacao);
 
-                    //String nomeUsu = rs.getString("NOMEUSU");
                     Usuario usuario = new Usuario();
                     usuario.setNome(nomeUsu);
 
-                    Chamado chamado = new Chamado(cod, tipo, situacao, status, usuario, setor);
+                    Chamado chamado = new Chamado(cod, setor, situacao, status, usuario);
 
                     lista.add(chamado);
                 }
@@ -187,14 +165,10 @@ public class ChamadoDao {
                 //percorre a lista
                 while (rs.next()) {
                     int cod = rs.getInt("chamado");
-                    String tipo = rs.getString("tipo");
-                    //String nomeAte = rs.getString("atendente");
+                    String nomSet = rs.getString("setor");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
-                    String nomSet = rs.getString("setor");
-
-                    //Atendente atendente = new Atendente();
-                    //atendente.setNome(nomeAte);
+                   
                     Status status = new Status();
                     status.setSituacao(situacao);
 
@@ -204,7 +178,7 @@ public class ChamadoDao {
                     Setor setor = new Setor();
                     setor.setNome(nomSet);
 
-                    Chamado chamado = new Chamado(cod, tipo, situacao, status, usuario, setor);
+                    Chamado chamado = new Chamado(cod, setor, situacao, status, usuario);
 
                     lista.add(chamado);
                 }
@@ -238,14 +212,11 @@ public class ChamadoDao {
                 //percorre a lista
                 while (rs.next()) {
                     int cod = rs.getInt("chamado");
-                    String desc = rs.getString("descricao");
-                    //String nomeAte = rs.getString("atendente");
+                    String nomSet = rs.getString("setor");
+                    //String desc = rs.getString("descricao");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
-                    String nomSet = rs.getString("setor");
-
-                   // Atendente atendente = new Atendente();
-                    //atendente.setNome(nomeAte);
+                    
                     Status status = new Status();
                     status.setSituacao(situacao);
 
@@ -255,7 +226,7 @@ public class ChamadoDao {
                     Setor setor = new Setor();
                     setor.setNome(nomSet);
 
-                    Chamado chamado = new Chamado(cod, desc, situacao, status, usuario, setor);
+                    Chamado chamado = new Chamado(cod, setor, situacao, status, usuario);
 
                     lista.add(chamado);
                 }

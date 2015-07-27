@@ -9,9 +9,7 @@ import dados.Atendente;
 import dados.Chamado;
 import dados.Setor;
 import dados.Status;
-import dados.Usuario;
 import dao.ChamadoDao;
-import dao.UsuarioDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -49,43 +47,20 @@ public class AlimentaChamadoServlet extends HttpServlet {
             out.println("<body>");
 
             Chamado chamado = new Chamado();
-            Atendente atendente = new Atendente();
-            Setor setor = new Setor();
-            // Status status = new Status();
-            //Usuario usuario = new Usuario();
-            //UsuarioDao userDao = new UsuarioDao();
-
-            // String login = request.getParameter("login");
-            //String verLod = userDao.verificaLogin(usuario);
-            //if (login == userDao.verificaLogin(login)) {
-            String tipo = request.getParameter("tipo");
-            if (tipo.equalsIgnoreCase("TI-Desenvolvimento")) {
-                chamado.setTipo(tipo);
-                atendente.setCodigo(1);
-                setor.setNome(tipo);
-
-            } else {
-                if (tipo.equalsIgnoreCase("TI-Suporte")) {
-                    chamado.setTipo(tipo);
-                    setor.setAtendente(atendente);
-                }
-            }
 
             String descricao = request.getParameter("descricao");
             chamado.setDescricao(descricao);
 
-            int temp = setor.getCodigo();
-            setor.setCodigo(temp);
+            String temp = request.getParameter("setor");
+            Setor setor = new Setor();
+            setor.setCodigo(Integer.parseInt(temp));
             chamado.setSetor(setor);
 
+            temp = request.getParameter("status");
             Status stat = new Status();
-            stat.setCodigo(Integer.parseInt(request.getParameter("status")));
+            stat.setCodigo(Integer.parseInt(request.getParameter(temp)));
             chamado.setStatus(stat);
 
-            //buscar usuarios banco.
-            // Usuario usu = new Usuario();
-            //usu.setCodigo(Integer.parseInt(login));
-            //chamado.setUsuario(usu);
             ChamadoDao chamadoDao = new ChamadoDao();
             String msg = chamadoDao.addChamado(chamado);
 

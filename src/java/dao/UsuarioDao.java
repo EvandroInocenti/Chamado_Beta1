@@ -39,45 +39,6 @@ public class UsuarioDao {
         }
     }
 
-   /* public String verificaLogin(String login) {
-
-        Conecta conecta = new Conecta();
-
-        if ("sucesso".equals(conecta.getMsg())) {
-
-            String validaLogin = "SELECT nome FROM Usuario";
-
-            try {
-                conecta.getStm().execute(validaLogin);
-                return login;
-            } catch (SQLException ex) {
-                return ("Erro: " + ex.getMessage());
-            }
-
-        } else {
-            return "Erro: " + conecta.getMsg();
-        }
-    }
-
-    public String verificaSenha(String senhaok) {
-
-        Conecta conecta = new Conecta();
-
-        if ("sucesso".equals(conecta.getMsg())) {
-
-            String validaSenha = "SELECT SENHA FROM Usuario";
-            try {
-                conecta.getStm().execute(validaSenha);
-                return validaSenha;
-            } catch (SQLException ex) {
-                return ("Erro: " + ex.getMessage());
-            }
-
-        } else {
-            return "Erro: " + conecta.getMsg();
-        }
-    }
-*/
     public List<Usuario> getUsuarios() {
         List<Usuario> lista = new ArrayList<Usuario>();
 
@@ -86,7 +47,6 @@ public class UsuarioDao {
         if ("sucesso".equals(conecta.getMsg())) {
             //campos contidos no BD
 
-            //login e senha no select
             String sql = "SELECT usu.*, uni.nome as nomeuni from USUARIO usu \n"
                     + "     inner join unidade uni on uni.codigo = usu.Unidade_codigo"
                     + "     order by usu.nome";
@@ -107,8 +67,6 @@ public class UsuarioDao {
                     unidade.setNome(nomeUnidade);
 
                     Usuario usuario = new Usuario(cod, nome, senha, unidade, email);
-                    //Usuario usuario = new Usuario(cod, nome, email, unidade, login, senha);
-
                     lista.add(usuario);
                 }
             } catch (SQLException ex) {

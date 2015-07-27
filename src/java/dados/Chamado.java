@@ -12,9 +12,7 @@ package dados;
 public class Chamado {
 
     private int codigo;
-    private String tipo, descricao;
-
-    //private Atendente atendente;
+    private String descricao;
     private Status status;
     private Usuario usuario;
     private Setor setor;
@@ -22,30 +20,13 @@ public class Chamado {
     public Chamado() {
     }
 
-    public Chamado(int codigo, String tipo, String descricao, Status status, Usuario usuario, Setor setor) {
+    public Chamado(int codigo, Setor setor, String descricao, Status status, Usuario usuario) {
         this.codigo = codigo;
-        this.tipo = tipo;
+        this.setor = setor;
         this.descricao = descricao;
         this.status = status;
         this.usuario = usuario;
-        this.setor = setor;
-
-    }
-
-    public Setor getSetor() {
-        return setor;
-    }
-
-    public void setSetor(Setor setor) {
-        this.setor = setor;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+        
     }
 
     public int getCodigo() {
@@ -54,14 +35,6 @@ public class Chamado {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getDescricao() {
@@ -80,4 +53,19 @@ public class Chamado {
         this.status = status;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
+    }
 }
