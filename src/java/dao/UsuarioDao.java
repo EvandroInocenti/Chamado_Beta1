@@ -39,7 +39,7 @@ public class UsuarioDao {
         }
     }
 
-    public String verificaLogin(String login) {
+   /* public String verificaLogin(String login) {
 
         Conecta conecta = new Conecta();
 
@@ -59,7 +59,7 @@ public class UsuarioDao {
         }
     }
 
-   /* public String verificaSenha(String senhaok) {
+    public String verificaSenha(String senhaok) {
 
         Conecta conecta = new Conecta();
 

@@ -5,9 +5,9 @@
  */
 package servlets;
 
+import dados.Atendente;
 import dados.Setor;
 import dao.SetorDao;
-import dao.UnidadeDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -46,6 +46,11 @@ public class AlimentaSetorServlet extends HttpServlet {
             
             String temp = request.getParameter("nome");
             setor.setNome(temp);
+            
+            temp = request.getParameter("atendente");
+            Atendente aten = new Atendente();
+            aten.setCodigo(Integer.parseInt(temp));
+            setor.setAtendente(aten);
             
             SetorDao setorDao = new SetorDao();
             String msg = setorDao.addSetor(setor);

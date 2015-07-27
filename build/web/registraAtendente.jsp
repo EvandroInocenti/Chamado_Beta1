@@ -21,6 +21,7 @@
                 <input type="text" name="nome" id="nome" value="" size="50"><br/>
                 <label for="email">E-mail</label>
                 <input type="text" name="email" id="email" value="" size="50"><br/>
+                <%--
                 <label>Setor</label>
                 <select name="setor">
                     <%
@@ -29,8 +30,9 @@
                            out.print("<option value=\"" +setor.getCodigo() + "\">" + setor.getNome()+ "</option>");
                         }
                     %>
+                
                 </select>
-                    
+                --%>    
                 <br/>
                 <input type="submit" value="cadastrar>>" name="btServlet" id="btServlet" />
                 

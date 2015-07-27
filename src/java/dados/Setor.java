@@ -10,16 +10,18 @@ package dados;
  * @author evandro
  */
 public class Setor {
+
     private int codigo;
     private String nome;
+    Atendente atendente;
 
     public Setor() {
     }
 
-        
-    public Setor(int codigo, String nome) {
+    public Setor(int codigo, String nome, Atendente atendente) {
         this.codigo = codigo;
         this.nome = nome;
+        this.atendente = atendente;
     }
 
     public int getCodigo() {
@@ -37,5 +39,13 @@ public class Setor {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
+    public Atendente getAtendente() {
+        return atendente;
+    }
+
+    public void setAtendente(Atendente atendente) {
+        this.atendente = atendente;
+    }
+
 }

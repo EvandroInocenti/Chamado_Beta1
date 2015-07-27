@@ -33,12 +33,19 @@
                 <tr>
                     <th>Código</th>
                     <th>Nome</th>
+                    <th>Atendente</th>
                 </tr>
             </thead>
             <c:forEach var="c" items="<%=setorDao.getSetores()%>">
                 <tr>
                     <td align="center">${c.codigo}</td>
                     <td>${c.nome}</td>
+                     <c:if test="${c.atendente != null}">
+                        <td>${c.atendente.nome}</td>
+                    </c:if>
+                    <c:if test="${c.atendente == null}">
+                        <td>Atendente não cadastrada</td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </tbody>

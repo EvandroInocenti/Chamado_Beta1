@@ -14,19 +14,37 @@ public class Chamado {
     private int codigo;
     private String tipo, descricao;
 
-    private Atendente atendente;
+    //private Atendente atendente;
     private Status status;
     private Usuario usuario;
+    private Setor setor;
 
     public Chamado() {
     }
 
-    public Chamado(int codigo, String tipo, String descricao, Atendente atendente, Status status, Usuario usuario) {
+    public Chamado(int codigo, String tipo, String descricao, Status status, Usuario usuario, Setor setor) {
         this.codigo = codigo;
         this.tipo = tipo;
         this.descricao = descricao;
-        this.atendente = atendente;
         this.status = status;
+        this.usuario = usuario;
+        this.setor = setor;
+
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
@@ -54,28 +72,12 @@ public class Chamado {
         this.descricao = descricao;
     }
 
-    public Atendente getAtendente() {
-        return atendente;
-    }
-
-    public void setAtendente(Atendente atendente) {
-        this.atendente = atendente;
-    }
-
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
 }

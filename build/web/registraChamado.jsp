@@ -18,9 +18,10 @@
     <body>
         <h2>Abra seu Chamado!</h2>
         <form name="resultform" action="AlimentaChamadoServlet" method="POST">
-            <h4>selecione o usuario e digite a senha registrar o chamado</h4>
+            <h4>Registre seu chamado</h4>
+            <%-- 
             <label>Login: </label>
-            <select name="login">
+              <select name="login">
                 <%
                     UsuarioDao usuarioDaoDao = new UsuarioDao();
                     for (Usuario usuario : usuarioDaoDao.getUsuarios()) {
@@ -31,10 +32,11 @@
             <label>Senha: </label>
             <input type="password" name="senha" id="senha" value="" size="15" /><br/>
             <br />
+            --%>
             <fieldset><legend>Tipo do chamado</legend>
 
-                <input type="radio" id="tipo" name="tipo" value="Software" />Software<br />
-                <input type="radio" id="tipo" name="tipo" value="Hardware" />Hardware<br />
+                <input type="radio" id="tipo" name="tipo" value="TI-Desenvolvimento" />TI-Desenvolvimento<br />
+                <input type="radio" id="tipo" name="tipo" value="TI-Suporte" />TI-Suporte  <br />
 
             </fieldset>
             <fieldset><legend><label for="name">Problema</label></legend>

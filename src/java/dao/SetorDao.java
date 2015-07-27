@@ -6,6 +6,7 @@
 package dao;
 
 import conexao.Conecta;
+import dados.Atendente;
 import dados.Setor;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class SetorDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO Setor ( NOME)"
-                    + "VALUES ('" + setor.getNome()+ "')";
+            String sql = "INSERT INTO Setor (NOME, ATENDENTE_CODIGO)"
+                    + "VALUES ('" + setor.getNome() + "','" + setor.getAtendente().getCodigo() + "')";
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";
@@ -42,21 +43,28 @@ public class SetorDao {
 
         if ("sucesso".equals(conecta.getMsg())) {
 
-            String sql = "SELECT * FROM SETOR";
+            String sql = "SELECT setor.*, atendente.nome as nomeatendente FROM SETOR \n"
+                    + "inner join atendente on atendente.codigo = setor.Atendente_codigo";
 
             ResultSet rs;
 
             try {
                 rs = conecta.getStm().executeQuery(sql);
-              
+
                 while (rs.next()) {
 
                     int cod = rs.getInt("CODIGO");
                     String nome = rs.getString("NOME");
+                    String nomeAten = rs.getString("NOMEATENDENTE");
 
-                    Setor setor = new Setor();
-                    setor.setCodigo(cod);
-                    setor.setNome(nome);
+                    Atendente aten = new Atendente();
+                    aten.setCodigo(cod);
+                    aten.setNome(nome);
+                    
+                    Atendente atendente = new Atendente();
+                    atendente.setNome(nomeAten);
+
+                    Setor setor = new Setor(cod, nome, atendente);
                     lista.add(setor);
                 }
             } catch (Exception e) {

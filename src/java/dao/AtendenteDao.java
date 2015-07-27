@@ -7,12 +7,9 @@ package dao;
 
 import conexao.Conecta;
 import dados.Atendente;
-import dados.Setor;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,9 +22,9 @@ public class AtendenteDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "INSERT INTO atendente(CODIGO, NOME, EMAIL, Setor_codigo)"
+            String sql = "INSERT INTO atendente(CODIGO, NOME, EMAIL)"
                     + "VALUES ('" + atendente.getCodigo() + "','" + atendente.getNome()
-                    + "','" + atendente.getEmail() + "','" + atendente.getSetor().getCodigo() + "')";
+                    + "','" + atendente.getEmail()+ "')";
             try {
                 conecta.getStm().execute(sql);
                 return "sucesso";
@@ -46,9 +43,8 @@ public class AtendenteDao {
 
         if ("sucesso".equals(conecta.getMsg())) {
 
-            String sql = "SELECT aten.*,setor.nome as Setor FROM atendente aten \n"
-                    + "    inner join setor on setor.codigo = aten.Setor_codigo"
-                    + "     order by aten.nome";
+            String sql = "SELECT * FROM atendente \n"
+                    + "     order by atendente.nome";
 
             ResultSet rs;
 
@@ -59,16 +55,12 @@ public class AtendenteDao {
                     int cod = rs.getInt("CODIGO");
                     String nome = rs.getString("NOME");
                     String email = rs.getString("EMAIL");
-                    String nomeSetor = rs.getString("SETOR");
-
-                    Setor setor = new Setor();
-                    setor.setNome(nomeSetor);
-
-                    Atendente atendente = new Atendente(cod, nome, email, setor);
+                     
+                    Atendente atendente = new Atendente(cod, nome, email);
                     listAten.add(atendente);
                 }
             } catch (Exception e) {
-                
+
             }
             return listAten;
         }

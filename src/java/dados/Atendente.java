@@ -14,25 +14,15 @@ public class Atendente {
     private int codigo;
     private String nome, email;
 
-    private Setor setor;
-
     public Atendente() {
 
     }
 
-    public Atendente(int codigo, String nome, String email, Setor setor) {
+    public Atendente(int codigo, String nome, String email) {
         this.codigo = codigo;
         this.nome = nome;
         this.email = email;
-        this.setor = setor;
-    }
 
-    public Setor getSetor() {
-        return setor;
-    }
-
-    public void setSetor(Setor setor) {
-        this.setor = setor;
     }
 
     public int getCodigo() {
@@ -58,5 +48,4 @@ public class Atendente {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

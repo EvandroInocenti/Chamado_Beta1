@@ -8,6 +8,7 @@ package dao;
 import conexao.Conecta;
 import dados.Atendente;
 import dados.Chamado;
+import dados.Setor;
 import dados.Status;
 import dados.Usuario;
 import java.sql.ResultSet;
@@ -31,31 +32,29 @@ public class ChamadoDao {
         UsuarioDao usuarioDao = new UsuarioDao();
         Usuario usuario = new Usuario();
 
-        String loginOk = usuarioDao.verificaLogin(usuario.getNome());
+        //String loginOk = usuarioDao.verificaLogin(usuario.getNome());
         //String senhaOk = usuarioDao.verificaSenha(usuario.getSenha());
-
-        if (loginOk == usuarioDao.verificaLogin(loginOk)) {
-            // if (senhaOk == usuarioDao.verificaSenha(senhaOk)) {
-
-            if ("sucesso".equals(conecta.getMsg())) {
-                String sql = "INSERT INTO chamado (tipo, descricao, Atendente_codigo, Status_codigo, Usuario_codigo)"
-                        + " VALUES ('" + chamado.getTipo() + "','" + chamado.getDescricao() + "'," + chamado.getAtendente().getCodigo()
-                        + "," + chamado.getStatus().getCodigo() + "," + chamado.getUsuario().getCodigo() + "')";
-                try {
-                    conecta.getStm().execute(sql);
-                    return "sucesso";
-                } catch (SQLException e) {
-                    return ("Erro: " + e.getMessage());
-                }
-
-            } else {
-                return ("Erro: " + conecta.getMsg());
+        //if (loginOk == usuarioDao.verificaLogin(loginOk)) {
+        // if (senhaOk == usuarioDao.verificaSenha(senhaOk)) {
+        if ("sucesso".equals(conecta.getMsg())) {
+            String sql = "INSERT INTO chamado (tipo, descricao, Status_codigo, Usuario_codigo, Setor_codigo)"
+                    + " VALUES ('" + chamado.getTipo() + "','" + chamado.getDescricao() + "'," + chamado.getStatus().getCodigo()
+                    + "," + chamado.getUsuario().getNome() + "," + chamado.getSetor().getNome() + "')";
+            try {
+                conecta.getStm().execute(sql);
+                return "sucesso";
+            } catch (SQLException e) {
+                return ("Erro: " + e.getMessage());
             }
-            // } else {
-            //return "Senha Inváilda";
-        }else {
-          return "Usuario invalido";
+
+        } else {
+            return ("Erro: " + conecta.getMsg());
         }
+        // } else {
+        //return "Senha Inváilda";
+        //}        else {
+        // return "Usuario invalido";
+        // }
     }
 
     //exibe chamados
@@ -65,9 +64,9 @@ public class ChamadoDao {
         Conecta conecta = new Conecta();
 
         if ("sucesso".equals(conecta.getMsg())) {
-            String sql = "select ch.codigo AS chamado, tipo, descricao, aten.nome AS atendente, usu.nome AS usuario, stat.situacao AS Status "
+            String sql = "select ch.codigo AS chamado, tipo, descricao, setor.nome AS setor AS setor, usu.nome AS usuario, stat.situacao AS Status "
                     + "     from CHAMADO ch "
-                    + "     inner join atendente aten on aten.codigo = ch.Atendente_codigo "
+                    + "     inner join atendente setor on setor.codigo = ch.Atendente_codigo "
                     + "     inner join status stat on stat.codigo = ch.Status_codigo "
                     + "     inner join usuario usu on usu.codigo = ch.Usuario_codigo "
                     + "     order by ch.codigo";
@@ -81,13 +80,13 @@ public class ChamadoDao {
                     int cod = rs.getInt("chamado");
                     String tipo = rs.getString("tipo");
                     String desc = rs.getString("descricao");
-                    String nomeAte = rs.getString("atendente");
+                    // String nomeAte = rs.getString("atendente");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
+                    String nomSet = rs.getString("setor");
 
-                    Atendente atendente = new Atendente();
-                    atendente.setNome(nomeAte);
-                    
+                    //Atendente atendente = new Atendente();
+                    //atendente.setNome(nomeAte);
                     //String sitStat = rs.getString("SITSTAT");
                     Status status = new Status();
                     status.setSituacao(situacao);
@@ -96,7 +95,10 @@ public class ChamadoDao {
                     Usuario usuario = new Usuario();
                     usuario.setNome(nomeUsu);
 
-                    Chamado chamado = new Chamado(cod, tipo, desc, atendente, status, usuario);
+                    Setor setor = new Setor();
+                    setor.setNome(nomSet);
+
+                    Chamado chamado = new Chamado(cod, tipo, desc, status, usuario, setor);
 
                     lista.add(chamado);
                 }
@@ -133,13 +135,16 @@ public class ChamadoDao {
                 while (rs.next()) {
                     int cod = rs.getInt("chamado");
                     String tipo = rs.getString("tipo");
-                    String nomeAte = rs.getString("atendente");
+                    //String nomeAte = rs.getString("atendente");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
+                    String nomSet = rs.getString("setor");
 
-                    Atendente atendente = new Atendente();
-                    atendente.setNome(nomeAte);
+                    Setor setor = new Setor();
+                    setor.setNome(nomSet);
 
+                   // Atendente atendente = new Atendente();
+                    //atendente.setNome(nomeAte);
                     //String sitStat = rs.getString("SITSTAT");
                     Status status = new Status();
                     status.setSituacao(situacao);
@@ -148,7 +153,7 @@ public class ChamadoDao {
                     Usuario usuario = new Usuario();
                     usuario.setNome(nomeUsu);
 
-                    Chamado chamado = new Chamado(cod, tipo, situacao, atendente, status, usuario);
+                    Chamado chamado = new Chamado(cod, tipo, situacao, status, usuario, setor);
 
                     lista.add(chamado);
                 }
@@ -183,20 +188,23 @@ public class ChamadoDao {
                 while (rs.next()) {
                     int cod = rs.getInt("chamado");
                     String tipo = rs.getString("tipo");
-                    String nomeAte = rs.getString("atendente");
+                    //String nomeAte = rs.getString("atendente");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
+                    String nomSet = rs.getString("setor");
 
-                    Atendente atendente = new Atendente();
-                    atendente.setNome(nomeAte);
-
+                    //Atendente atendente = new Atendente();
+                    //atendente.setNome(nomeAte);
                     Status status = new Status();
                     status.setSituacao(situacao);
 
                     Usuario usuario = new Usuario();
                     usuario.setNome(nomeUsu);
 
-                    Chamado chamado = new Chamado(cod, tipo, situacao, atendente, status, usuario);
+                    Setor setor = new Setor();
+                    setor.setNome(nomSet);
+
+                    Chamado chamado = new Chamado(cod, tipo, situacao, status, usuario, setor);
 
                     lista.add(chamado);
                 }
@@ -231,20 +239,23 @@ public class ChamadoDao {
                 while (rs.next()) {
                     int cod = rs.getInt("chamado");
                     String desc = rs.getString("descricao");
-                    String nomeAte = rs.getString("atendente");
+                    //String nomeAte = rs.getString("atendente");
                     String situacao = rs.getString("status");
                     String nomeUsu = rs.getString("usuario");
+                    String nomSet = rs.getString("setor");
 
-                    Atendente atendente = new Atendente();
-                    atendente.setNome(nomeAte);
-
+                   // Atendente atendente = new Atendente();
+                    //atendente.setNome(nomeAte);
                     Status status = new Status();
                     status.setSituacao(situacao);
 
                     Usuario usuario = new Usuario();
                     usuario.setNome(nomeUsu);
 
-                    Chamado chamado = new Chamado(cod, desc, situacao, atendente, status, usuario);
+                    Setor setor = new Setor();
+                    setor.setNome(nomSet);
+
+                    Chamado chamado = new Chamado(cod, desc, situacao, status, usuario, setor);
 
                     lista.add(chamado);
                 }

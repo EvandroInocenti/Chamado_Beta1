@@ -7,6 +7,7 @@ package servlets;
 
 import dados.Atendente;
 import dados.Chamado;
+import dados.Setor;
 import dados.Status;
 import dados.Usuario;
 import dao.ChamadoDao;
@@ -49,61 +50,59 @@ public class AlimentaChamadoServlet extends HttpServlet {
 
             Chamado chamado = new Chamado();
             Atendente atendente = new Atendente();
-           // Status status = new Status();
+            Setor setor = new Setor();
+            // Status status = new Status();
             //Usuario usuario = new Usuario();
-            UsuarioDao userDao = new UsuarioDao();
+            //UsuarioDao userDao = new UsuarioDao();
 
-           // String login = request.getParameter("login");
+            // String login = request.getParameter("login");
             //String verLod = userDao.verificaLogin(usuario);
             //if (login == userDao.verificaLogin(login)) {
+            String tipo = request.getParameter("tipo");
+            if (tipo.equalsIgnoreCase("TI-Desenvolvimento")) {
+                chamado.setTipo(tipo);
+                atendente.setCodigo(1);
+                setor.setNome(tipo);
 
-                    String tipo = request.getParameter("tipo");
-                    if (tipo.equalsIgnoreCase("TI")) {
-                        chamado.setTipo(tipo);
-                        //atendente.setCodigo(1);
-                        atendente.setNome(atendente.getNome());
+            } else {
+                if (tipo.equalsIgnoreCase("TI-Suporte")) {
+                    chamado.setTipo(tipo);
+                    setor.setAtendente(atendente);
+                }
+            }
 
-                    } else {
-                        if (tipo.equalsIgnoreCase("TI-Suporte")) {
-                            chamado.setTipo(tipo);
-                            atendente.setCodigo(2);
-                        }
-                    }
+            String descricao = request.getParameter("descricao");
+            chamado.setDescricao(descricao);
 
-                    String descricao = request.getParameter("descricao");
-                    chamado.setDescricao(descricao);
+            int temp = setor.getCodigo();
+            setor.setCodigo(temp);
+            chamado.setSetor(setor);
 
-                    int temp = atendente.getCodigo();
-                    Atendente aten = new Atendente();
-                    aten.setCodigo(temp);
-                    chamado.setAtendente(aten);
+            Status stat = new Status();
+            stat.setCodigo(Integer.parseInt(request.getParameter("status")));
+            chamado.setStatus(stat);
 
-                    Status stat = new Status();
-                    stat.setCodigo(Integer.parseInt(request.getParameter("status")));
-                    chamado.setStatus(stat);
+            //buscar usuarios banco.
+            // Usuario usu = new Usuario();
+            //usu.setCodigo(Integer.parseInt(login));
+            //chamado.setUsuario(usu);
+            ChamadoDao chamadoDao = new ChamadoDao();
+            String msg = chamadoDao.addChamado(chamado);
 
-                    //buscar usuarios banco.
-                   // Usuario usu = new Usuario();
-                    //usu.setCodigo(Integer.parseInt(login));
-                    //chamado.setUsuario(usu);
+            if (msg.equals("sucesso")) {
+                response.sendRedirect("mostraChamado.jsp?chamadoIncluido = " + chamado.getStatus());
 
-                    ChamadoDao chamadoDao = new ChamadoDao();
-                    String msg = chamadoDao.addChamado(chamado);
+            } else {
+                out.print("Erro ao registrar Chamado!");
+            }
 
-                    if (msg.equals("sucesso")) {
-                        response.sendRedirect("mostraChamado.jsp?chamadoIncluido = " + chamado.getStatus());
+            out.println("</body>");
+            out.println("</html>");
 
-                    } else {
-                        out.print("Erro ao registrar Chamado!");
-                    }
-
-                    out.println("</body>");
-                    out.println("</html>");
-             
             //}
-            System.out.println("Usuario ou senha incorretos");
+            // System.out.println("Usuario ou senha incorretos");
         }
-        System.out.println("Usuario ou senha incorretos");
+        //System.out.println("Usuario ou senha incorretos");
 
     }
 
